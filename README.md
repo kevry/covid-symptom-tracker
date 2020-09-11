@@ -2,6 +2,8 @@
 EC 463 Software MiniProject
 
 ## Environment Setup
+Install the package managers 'yarn' and 'npm'
+
 Install the Expo CLI
 ```
 npm install -g expo-cli

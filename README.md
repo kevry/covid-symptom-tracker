@@ -20,9 +20,9 @@ yarn install
 ```
 
 #### 3. Start app
-Install the Expo client app on your iOS or Android phone and connect to the same wireless network as your computer. On Android, use the Expo app to scan the QR code from your terminal. On iOS, use the built-in QR code scanner of the Camera app.
-
-Then run
+Run
 ```
 yarn start
 ```
+
+Then install the Expo client app on your iOS or Android phone and connect to the same wireless network as your computer. On Android, use the Expo app to scan the QR code from your terminal. On iOS, use the built-in QR code scanner of the Camera app.

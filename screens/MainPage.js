@@ -36,7 +36,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 22,
     borderRadius: 20,
     width: '90%',
-    marginBottom: 10
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 1
   }
 });
 

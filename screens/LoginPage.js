@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View, Image, Button, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Image, Button, TextInput, Dimensions } from 'react-native';
+
+const windowWidth = Dimensions.get('window').width;
 
 const LoginPage = props => {
 
@@ -50,7 +52,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: "flex-start",
     paddingHorizontal: 10,
-    marginTop: 40
+    marginTop: 50
   },
   container: {
     alignItems: 'center',
@@ -67,8 +69,8 @@ const styles = StyleSheet.create({
   },
   image: {
     justifyContent: 'center',
-    height: 373 * 392 / 649,
-    width: 392
+    height: 291 * windowWidth / 649,
+    width: windowWidth
   },
   buttonContainer: {
     marginBottom: 30,

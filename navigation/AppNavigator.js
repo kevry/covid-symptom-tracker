@@ -1,7 +1,10 @@
-import { createAppContainer } from 'react-navigation'
-import { createStackNavigator, TransitionPresets  } from 'react-navigation-stack';
+import { createAppContainer, createSwitchNavigator   } from 'react-navigation'
+import { createStackNavigator, TransitionPresets} from 'react-navigation-stack';
 
-import LoginPage from '../screens/LoginPage'
+import LoginScreen from '../screens/LoginScreen'
+import LoadingScreen from '../screens/LoadingScreen'
+import Register from '../screens/RegisterPage'
+
 import MainPage from '../screens/MainPage'
 import SymptomSurvey from '../screens/SymptomSurvey'
 import CovidStats from '../screens/CovidStats'
@@ -14,9 +17,14 @@ import SurveyQ6 from '../screens/SurveyQ6'
 import SurveyQ7 from '../screens/SurveyQ7'
 import SurveyQ8 from '../screens/SurveyQ8'
 
-const AppNavigator = createStackNavigator({
-  Welcome: LoginPage,
-  Home: MainPage,
+
+const AuthStack = createStackNavigator({
+  LoginScreen: LoginScreen,
+  Register: Register
+})
+
+const AppStack = createStackNavigator({
+  'Home': MainPage,
   'Daily Symptom Survey': SymptomSurvey,
   'COVID-19 Statistics': CovidStats,
   'Question 1': SurveyQ1,
@@ -27,11 +35,18 @@ const AppNavigator = createStackNavigator({
   'Question 6': SurveyQ6,
   'Question 7': SurveyQ7,
   'Question 8': SurveyQ8,
+})
 
-}, {
-  defaultNavigationOptions: {...TransitionPresets.SlideFromRightIOS},
-  headerMode: 'float'
-}
-);
+const AppNavigator = createSwitchNavigator(
+    {
+      LoadingScreen: LoadingScreen,
+      App: AppStack,
+      Auth: AuthStack
+    },
+    {
+      initialRouteName: "LoadingScreen"
+    }
+  );
+
 
 export default createAppContainer(AppNavigator);

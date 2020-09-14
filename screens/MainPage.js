@@ -1,25 +1,54 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import firebase from "firebase"
 
-const MainPage = props => {
-  return (
-    <View style={styles.screen}>
+class MainPage extends React.Component {
+
+  state = {
+    email: "",
+    displayName: ""
+  }
+
+
+  componentDidMount() {
+    const {email, displayName} = firebase.auth().currentUser;
+    this.setState({email, displayName})
+  }
+
+  logout = () => {
+    firebase.auth()
+        .signOut()
+        .then(() => console.log('User signed out!'));
+  }
+
+  render() {
+    return (
+      <View style={styles.screen}>
+       
+        <Text> Hello {this.state.email} </Text>
       
-      <TouchableOpacity style={styles.card} onPress={() => props.navigation.navigate('Daily Symptom Survey')}>
-        <View>
-          <Text>Daily Symptom Survey</Text>
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity style={styles.card} onPress={() => props.navigation.navigate('COVID-19 Statistics')}>
-        <View>
-          <Text>COVID-19 Statistics</Text>
-        </View>
-      </TouchableOpacity>
-
-    </View>
-  );
-};
+        <TouchableOpacity style={styles.card} onPress={() => props.navigation.navigate('Daily Symptom Survey')}>
+          <View>
+            <Text>Daily Symptom Survey</Text>
+          </View>
+        </TouchableOpacity>
+  
+        <TouchableOpacity style={styles.card} onPress={() => props.navigation.navigate('COVID-19 Statistics')}>
+          <View>
+            <Text>COVID-19 Statistics</Text>
+          </View>
+        </TouchableOpacity>
+  
+        <TouchableOpacity style={styles.card} onPress={() => this.logout()}>
+          <View>
+            <Text>Logout</Text>
+          </View>
+        </TouchableOpacity>
+  
+      </View>
+    )
+  }
+}
 
 const styles = StyleSheet.create({
   screen: {

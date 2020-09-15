@@ -21,6 +21,7 @@ import SurveyQ5 from './screens/SurveyQ5'
 import SurveyQ6 from './screens/SurveyQ6'
 import SurveyQ7 from './screens/SurveyQ7'
 import SurveyQ8 from './screens/SurveyQ8'
+import AdminDashboard from './screens/AdminDashboard'
 
 import * as firebase from 'firebase'
 import { firebaseConfig } from './config';
@@ -46,6 +47,7 @@ const AppStack = createStackNavigator({
   'Question 6': SurveyQ6,
   'Question 7': SurveyQ7,
   'Question 8': SurveyQ8,
+  'Admin Dashboard': AdminDashboard
 })
 
 export default createAppContainer(

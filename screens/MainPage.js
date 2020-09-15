@@ -6,13 +6,21 @@ class MainPage extends React.Component {
 
   state = {
     email: "",
-    displayName: ""
+    displayName: "",
+    content: null
   }
-
 
   componentDidMount() {
     const {email, displayName} = firebase.auth().currentUser;
     this.setState({email, displayName})
+
+    if (1) { // add "if admin" condition
+    this.state.content = <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Admin Dashboard')}>
+      <View>
+        <Text>Admin Dashboard</Text>
+      </View>
+    </TouchableOpacity>
+    }
   }
 
   logout = () => {
@@ -25,19 +33,21 @@ class MainPage extends React.Component {
     return (
       <View style={styles.screen}>
        
-        <Text> Hello {this.state.email} </Text>
+        <Text style={styles.hello}> Hello {this.state.email} </Text>
       
-        <TouchableOpacity style={styles.card} onPress={() => props.navigation.navigate('Daily Symptom Survey')}>
+        <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Daily Symptom Survey')}>
           <View>
             <Text>Daily Symptom Survey</Text>
           </View>
         </TouchableOpacity>
   
-        <TouchableOpacity style={styles.card} onPress={() => props.navigation.navigate('COVID-19 Statistics')}>
+        <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('COVID-19 Statistics')}>
           <View>
             <Text>COVID-19 Statistics</Text>
           </View>
         </TouchableOpacity>
+
+        {this.state.content}
   
         <TouchableOpacity style={styles.card} onPress={() => this.logout()}>
           <View>
@@ -70,6 +80,11 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.5,
     shadowRadius: 1
+  },
+  hello: {
+    marginBottom: 20,
+    fontWeight: 'bold',
+    fontSize: 20
   }
 });
 

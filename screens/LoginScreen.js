@@ -42,6 +42,7 @@ class LoginScreen extends React.Component {
                     value={this.state.email}
                     />
                     
+                    <Text></Text>
 
                     <TextInput
                     style={styles.textInputContainer}

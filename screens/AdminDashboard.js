@@ -55,7 +55,7 @@ class AdminDashboard extends Component {
         {
           this.state.users.map((item) => {
             return (
-              <View style={[(item.Symptoms == 'No') ? styles.listNo : styles.listYes]}>
+              <View style={(item.Symptoms == 'No') ? styles.listNo : (item.Symptoms == 'Yes') ? styles.listYes : styles.listNone}>
                 <Text style={styles.text1}>{item.Name}</Text>
                 <Text style={styles.text}>Email: {item.Email}</Text>
                 <Text style={styles.text}>Experiencing symptoms: {item.Symptoms}</Text>
@@ -111,5 +111,18 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.5,
     shadowRadius: 1,
     backgroundColor: 'rgb(255, 220, 220)'
+  },
+  listNone: {
+    elevation: 5,
+    paddingVertical: 17,
+    paddingHorizontal: 22,
+    borderRadius: 20,
+    width: '98%',
+    marginBottom: 10,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.5,
+    shadowRadius: 1,
+    backgroundColor: 'rgb(180, 180, 180)'
   }
 });

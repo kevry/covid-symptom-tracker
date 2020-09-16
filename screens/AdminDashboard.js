@@ -1,28 +1,100 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, ScrollView, TextInput, Button } from 'react-native';
+import firebase from "firebase"
 
-class AdminDashboard extends Component {
+import { firebaseConfig } from '../config';
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig)
+}
 
-  constructor() {
+const db = firebase.firestore();
+
+class AdminDashboard extends React.Component{
+
+    //Getting the current data
+    getDate = ()  => {
+      var today = new Date();
+      var dd = String(today.getDate()).padStart(2, '0');
+      var mm = String(today.getMonth() + 1).padStart(2, '0'); 
+      var yyyy = today.getFullYear();
+      today = mm + '-' + dd + '-' + yyyy;
+      return today;
+    }
+
+
+  constructor(){
     super();
+
+    this.state = {
+      isLoading: true
+    }
+
+
+
     this.state = {
       percentageSymptom: 0,
       percentageDidntFill: 0,
-      users: [
-        {key: 1, Name: 'Student 1', Email: 'student1@bu.edu', Symptoms: 'No'},
-        {key: 2, Name: 'Student 2', Email: 'student2@bu.edu', Symptoms: 'Yes'},
-        {key: 3, Name: 'Student 3', Email: 'student3@bu.edu', Symptoms: ''},
-        {key: 4, Name: 'Student 4', Email: 'student4@bu.edu', Symptoms: 'No'},
-        {key: 5, Name: 'Student 5', Email: 'student5@bu.edu', Symptoms: 'No'},
-        {key: 6, Name: 'Student 6', Email: 'student6@bu.edu', Symptoms: 'Yes'},
-        {key: 7, Name: 'Student 7', Email: 'student7@bu.edu', Symptoms: 'No'},
-        {key: 8, Name: 'Student 8', Email: 'student8@bu.edu', Symptoms: 'No'},
-        {key: 9, Name: 'Student 9', Email: 'student9@bu.edu', Symptoms: 'No'},
-      ]
+      users: []
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
+
+
+  var fetchData = new Promise(async (resolve, reject) => {
+
+    const userRef= db.collection('users');
+    const snapshot = await userRef.get();
+
+    var lengthDoc = 0;
+
+    snapshot.forEach(async (doc) => {
+      //engthDoc = this.state.lengthDoc + 1
+      //console.log(doc.id, '=>', doc.data());
+      var name = doc.data().firstName + " " + doc.data().lastName;     
+      var email = doc.data().email;
+
+      const surveyRef = db.collection('users').doc(doc.id).collection('surveys').doc(this.getDate());
+
+      const docSnap = await surveyRef.get();
+
+      var symptom = "No";
+      if (!docSnap.exists) {
+      symptom = 'N/A'  
+      console.log('No survey available')
+      } else {
+      var surveyAns = docSnap.data().surveyResponse;
+      surveyAns.forEach(ans => {
+        if (ans == 1)
+          symptom = "Yes"
+      })
+
+      console.log("Experienced Symptoms?: " + symptom)
+      
+      }
+
+      var userInfo = {key: this.state.lengthDoc, Name: name , Email: email, Symptoms: symptom};
+      console.log("Info: => ", userInfo)
+
+      this.state.users.push(userInfo);
+
+
+      if (lengthDoc == snapshot.size - 1) {
+        resolve();
+      } else {
+        lengthDoc  = lengthDoc + 1
+      }
+
+
+    })
+    
+
+  })
+
+
+  fetchData.then((val) => {
+    console.log("Finished")
+
     let n = 0;
     for(let i of this.state.users) {
       if(i.Symptoms == 'Yes') {
@@ -34,13 +106,24 @@ class AdminDashboard extends Component {
 
     n = 0;
     for(let i of this.state.users) {
-      if(i.Symptoms == '') {
+      if(i.Symptoms == 'N/A') {
         n = n+1;
       }
     }
     n = Math.round(n*100/this.state.users.length);
     this.setState({percentageDidntFill: n});
-  }
+
+    this.setState({
+      isLoading: false
+    })      
+
+  });
+
+
+    
+
+}
+
 
   render() {
     return (

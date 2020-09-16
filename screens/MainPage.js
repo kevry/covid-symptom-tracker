@@ -1,26 +1,58 @@
+import { app } from '../App';
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import firebase from "firebase"
+
+import { firebaseConfig } from '../config';
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig)
+}
+
+const db = firebase.firestore();
 
 class MainPage extends React.Component {
 
   state = {
     email: "",
     displayName: "",
-    content: null
+    content: null,
+    uid: "",
+    firstName: "",
+    lastName: "",
+    admin: 0
   }
 
   componentDidMount() {
-    const {email, displayName} = firebase.auth().currentUser;
-    this.setState({email, displayName})
+    const {email, displayName, uid} = firebase.auth().currentUser;
+    this.setState({email, displayName, uid})
 
-    if (1) { // add "if admin" condition
-    this.state.content = <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Admin Dashboard')}>
-      <View>
-        <Text>Admin Dashboard</Text>
-      </View>
-    </TouchableOpacity>
+    const userRef= db.collection('users').doc(uid);
+    userRef.get().then((doc) => {
+
+      if (doc.exists) {
+        console.log("Document data of user:", doc.data());
+        var firstName = doc.data().firstName;
+        var lastName = doc.data().firstName;
+        var admin = doc.data().admin;
+        this.setState({firstName, lastName, admin})
+
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
     }
+
+      if (this.state.admin) { // add "if admin" condition
+        var content = <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Admin Dashboard')}>
+          <View>
+            <Text>Admin Dashboard</Text>
+          </View>
+        </TouchableOpacity>
+
+        this.setState({content})
+      }
+
+    })
+
   }
 
   logout = () => {
@@ -33,8 +65,8 @@ class MainPage extends React.Component {
     return (
       <View style={styles.screen}>
        
-        <Text style={styles.hello}> Hello {this.state.email} </Text>
-      
+        <Text style={styles.hello}> Hello {this.state.displayName} </Text>
+   
         <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Daily Symptom Survey')}>
           <View>
             <Text>Daily Symptom Survey</Text>

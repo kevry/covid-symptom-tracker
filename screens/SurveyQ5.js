@@ -3,14 +3,18 @@ import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 const SurveyQ5 = props => {
 
+  const answers = props.navigation.getParam('answers', 'Nothing')
+
   const answerNo = () => {
     // upload a "no" answer to firebase
-    props.navigation.navigate('Question 6')
+    answers[4] = 0
+    props.navigation.navigate('Question 6', {answers: answers})
   }
 
   const answerYes = () => {
     // upload a "yes" answer to firebase
-    props.navigation.navigate('Question 6')
+    answers[4] = 1
+    props.navigation.navigate('Question 6', {answers: answers})
   }
 
   return (

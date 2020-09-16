@@ -1,22 +1,43 @@
+import { app } from '../App';
 import React, {Component} from 'react'
 import { StyleSheet, Text, View, Image, Button, TextInput, Dimensions, TouchableOpacity} from 'react-native';
 const windowWidth = Dimensions.get('window').width;
-
 import firebase from "firebase"
+
+import { firebaseConfig } from '../config';
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig)
+}
+
+const db = firebase.firestore();
 
 
 class Register extends React.Component {
 
     state = {firstName: "", lastName: "", email: "", password: "", errorMessage: null};
-  
+    
     createUser = () => {
 
         const {firstName, lastName, email, password} = this.state;
+        
 
         firebase.auth()
+        
             .createUserWithEmailAndPassword(email, password)
-            .then(() => {
+            .then((userCredentials) => {
                 console.log('User account created & signed in!');
+                userCredentials.user.updateProfile({
+                    displayName: this.state.firstName + " " + this.state.lastName
+                })
+
+                //Adding the user information to cloud firestore
+                const userRef = db.collection("users").doc(userCredentials.user.uid).set({
+                    firstName: firstName,
+                    lastName: lastName,
+                    email: email,
+                    admin: 0
+                })
+
             })
             .catch(error => {
                 if (error.code === 'auth/email-already-in-use') {
@@ -26,6 +47,8 @@ class Register extends React.Component {
                 if (error.code === 'auth/invalid-email') {
                 console.log('That email address is invalid!');
                 }
+
+                this.setState({errorMessage: error.message})
     
                 console.error(error);
             });

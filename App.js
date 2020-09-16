@@ -1,10 +1,5 @@
-import React, {Component} from 'react';
-import { StyleSheet, View } from 'react-native';
-
-import AppNavigator from './navigation/AppNavigator'
-
 import { createAppContainer, createSwitchNavigator   } from 'react-navigation'
-import { createStackNavigator, TransitionPresets} from 'react-navigation-stack';
+import { createStackNavigator} from 'react-navigation-stack';
 
 import LoginScreen from './screens/LoginScreen'
 import LoadingScreen from './screens/LoadingScreen'
@@ -25,10 +20,9 @@ import AdminDashboard from './screens/AdminDashboard'
 
 import * as firebase from 'firebase'
 import { firebaseConfig } from './config';
-
-firebase.initializeApp(firebaseConfig)
-// import LoginPage from './screens/LoginPage'
-// import MainPage from './screens/MainPage'
+if (!firebase.apps.length) {
+  firebase.initializeApp(firebaseConfig)
+}
 
 const AuthStack = createStackNavigator({
   LoginScreen: LoginScreen,
@@ -62,7 +56,5 @@ export default createAppContainer(
     }
   )
 )
-
-
 
 

@@ -39,19 +39,7 @@ class Register extends React.Component {
                 })
 
             })
-            .catch(error => {
-                if (error.code === 'auth/email-already-in-use') {
-                console.log('That email address is already in use!');
-                }
-    
-                if (error.code === 'auth/invalid-email') {
-                console.log('That email address is invalid!');
-                }
-
-                this.setState({errorMessage: error.message})
-    
-                console.error(error);
-            });
+            .catch(error => this.setState({errorMessage: error.message}));
     }
 
     render() {
@@ -64,12 +52,21 @@ class Register extends React.Component {
                 <View style={styles.container}>
                     <Text style={styles.title}>Welcome to your Symptom Tracker App</Text>
 
+                    <View style={styles.errorMessage}> 
+                      {this.state.errorMessage && <Text style={styles.errorMessage, {fontWeight: "500", color: "#E9446A"}}>{this.state.errorMessage}</Text>}
+                    </View>
+
+                    <Text></Text>
+
+
                     <TextInput
                     style={styles.textInputContainer}
                     placeholder="First Name"
                     onChangeText={firstName => this.setState({firstName})}
                     value={this.state.firstName}
                     />
+
+                    <Text></Text>
 
                     <TextInput
                     style={styles.textInputContainer}
@@ -78,6 +75,8 @@ class Register extends React.Component {
                     value={this.state.lastName}
                     />
 
+                    <Text></Text>
+
 
                     <TextInput
                     style={styles.textInputContainer}
@@ -85,6 +84,8 @@ class Register extends React.Component {
                     onChangeText={email => this.setState({email})}
                     value={this.state.email}
                     />
+
+                    <Text></Text>
                     
 
                     <TextInput

@@ -117,8 +117,10 @@ class LoginScreen extends React.Component {
                     <Text style={styles.title}>Welcome to your Symptom Tracker App</Text>
 
                     <View style={styles.errorMessage}> 
-                      {this.state.errorMessage && <Text style={styles.errorMessage}>{this.state.errorMessage}</Text>}
+                      {this.state.errorMessage && <Text style={styles.errorMessage, {fontWeight: "500", color: "#E9446A"}}>{this.state.errorMessage}</Text>}
                     </View>
+
+                    <Text></Text>
 
 
                     <TextInput

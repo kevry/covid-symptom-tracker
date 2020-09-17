@@ -2,13 +2,17 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 const SymptomSurvey = props => {
+
+  //List of answers. All currently 0
+  const answers = [0,0,0,0,0,0,0,0]
+
   return (
     <View style={styles.screen}>
 
       <Text style={styles.title}>Are you experiencing any of the following symptoms?</Text>
       <Text style={styles.text}>Please Note: These questions pertain only to new symptoms that have arisen in the past 14 days.</Text>
       <View style={{alignItems: 'center'}}>
-        <TouchableOpacity style={styles.card} onPress={() => props.navigation.navigate('Question 1')}>
+        <TouchableOpacity style={styles.card} onPress={() => props.navigation.navigate('Question 1', {answers: answers})}>
           <Text style={{color: 'white'}}>Begin Survey</Text>
         </TouchableOpacity>
       </View>

@@ -2,15 +2,30 @@ import React from 'react';
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
 
 const SurveyQ3 = props => {
+
+  const answers = props.navigation.getParam('answers', 'Nothing')
+
+  const answerNo = () => {
+    // upload a "no" answer to firebase
+    answers[2] = 0
+    props.navigation.navigate('Question 4', {answers: answers})
+  }
+
+  const answerYes = () => {
+    // upload a "yes" answer to firebase
+    answers[2] = 1
+    props.navigation.navigate('Question 4', {answers: answers})
+  }
+
   return (
     <View style={styles.screen}>
 
       <Text style={styles.title}>Difficulty breathing, Shortness of breath</Text>
       <View style={styles.container}>
-        <TouchableOpacity style={{...styles.card, marginRight: 20}} onPress={() => props.navigation.navigate('Question 4')}>
+        <TouchableOpacity style={{...styles.card, marginRight: 20}} onPress={answerNo}>
           <Text style={{color: 'white'}}>No</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.card} onPress={() => props.navigation.navigate('Question 4')}>
+        <TouchableOpacity style={styles.card} onPress={answerYes}>
           <Text style={{color: 'white'}}>Yes</Text>
         </TouchableOpacity>
       </View>

@@ -1,25 +1,96 @@
+import { app } from '../App';
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import firebase from "firebase"
 
-const MainPage = props => {
-  return (
-    <View style={styles.screen}>
-      
-      <TouchableOpacity style={styles.card} onPress={() => props.navigation.navigate('Daily Symptom Survey')}>
-        <View>
-          <Text>Daily Symptom Survey</Text>
-        </View>
-      </TouchableOpacity>
+import { firebaseConfig } from '../config';
+if (!firebase.apps.length) {
+    firebase.initializeApp(firebaseConfig)
+}
 
-      <TouchableOpacity style={styles.card} onPress={() => props.navigation.navigate('COVID-19 Statistics')}>
-        <View>
-          <Text>COVID-19 Statistics</Text>
-        </View>
-      </TouchableOpacity>
+const db = firebase.firestore();
 
-    </View>
-  );
-};
+class MainPage extends React.Component {
+
+  state = {
+    email: "",
+    displayName: "",
+    content: null,
+    uid: "",
+    firstName: "",
+    lastName: "",
+    admin: 0
+  }
+
+  componentDidMount() {
+    const {email, displayName, uid} = firebase.auth().currentUser;
+    this.setState({email, displayName, uid})
+
+    const userRef= db.collection('users').doc(uid);
+    userRef.get().then((doc) => {
+
+      if (doc.exists) {
+        console.log("Document data of user:", doc.data());
+        var firstName = doc.data().firstName;
+        var lastName = doc.data().firstName;
+        var admin = doc.data().admin;
+        this.setState({firstName, lastName, admin})
+
+      } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+
+      if (this.state.admin) { // add "if admin" condition
+        var content = <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Admin Dashboard')}>
+          <View>
+            <Text>Admin Dashboard</Text>
+          </View>
+        </TouchableOpacity>
+
+        this.setState({content})
+      }
+
+    })
+
+  }
+
+  logout = () => {
+    firebase.auth()
+        .signOut()
+        .then(() => console.log('User signed out!'));
+  }
+
+  render() {
+    return (
+      <View style={styles.screen}>
+       
+        <Text style={styles.hello}> Hello {this.state.displayName} </Text>
+   
+        <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('Daily Symptom Survey')}>
+          <View>
+            <Text>Daily Symptom Survey</Text>
+          </View>
+        </TouchableOpacity>
+  
+        <TouchableOpacity style={styles.card} onPress={() => this.props.navigation.navigate('COVID-19 Statistics')}>
+          <View>
+            <Text>COVID-19 Statistics</Text>
+          </View>
+        </TouchableOpacity>
+
+        {this.state.content}
+  
+        <TouchableOpacity style={styles.card} onPress={() => this.logout()}>
+          <View>
+            <Text>Logout</Text>
+          </View>
+        </TouchableOpacity>
+  
+      </View>
+    )
+  }
+}
 
 const styles = StyleSheet.create({
   screen: {
@@ -41,6 +112,11 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 1 },
     shadowOpacity: 0.5,
     shadowRadius: 1
+  },
+  hello: {
+    marginBottom: 20,
+    fontWeight: 'bold',
+    fontSize: 20
   }
 });
 

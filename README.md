@@ -16,7 +16,7 @@ Admins are manually selected. If the user is admin, they have access to the Admi
 Admin users have access to all Firebase user data. They will have access to whether the user has had symptoms, their first name, last name,and email.
 
 # CovidAPI
-The app provides users with COVID data by country through COVID19api.com
+The app provides users with COVID data by country through [pubically available COVID19 API](COVID19api.com)
 
 
 

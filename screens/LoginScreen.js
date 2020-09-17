@@ -151,7 +151,7 @@ class LoginScreen extends React.Component {
                 </View>
 
                 <TouchableOpacity 
-                    style={{alignSelf: "center", marginTop: 32}} 
+                    style={{alignSelf: "center", marginTop: 15}} 
                     onPress = {() => this.props.navigation.navigate("Register")}
                 >
                     <Text style={{ color: "#414959", fontSize: 13}}>
@@ -160,7 +160,7 @@ class LoginScreen extends React.Component {
                 </TouchableOpacity>
 
                 <TouchableOpacity 
-                    style={{alignSelf: "center", marginTop: 32}} 
+                    style={{alignSelf: "center", marginTop: 15}} 
                     onPress = {() => this.signInWithGoogleAsync()}
                 >
                     <Text style={{ color: "#414959", fontSize: 13}}>

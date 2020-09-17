@@ -1,6 +1,49 @@
 # Covid Symptom Tracker
 EC 463 Software MiniProject
 
+
+## React Native Mobile App: Covid Symptom Tracker
+
+# Authentication
+All authenticaion was implemented through Google Firebase. Users can log into the app with email and password or through their Gmail. 
+
+For registration, users will input their first name, last name, email, and password to be fully registered in the app. 
+
+# Admin registration
+Admins are manually selected. If the user is admin, they have access to the Admin Dashboard
+
+# Admin Dashboard
+Admin users have access to all Firebase user data. They will have access to whether the user has had symptoms, their first name, last name,and email.
+
+# CovidAPI
+The app provides users with COVID data by country through COVID19api.com
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## Environment Setup
 #### 1. Install the package managers 'yarn' and 'npm'
 
@@ -8,7 +51,6 @@ EC 463 Software MiniProject
 ```
 npm install -g expo-cli
 ```
-
 ## Running
 
 #### 1. Clone or download the repository

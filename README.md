@@ -3,6 +3,7 @@ EC 463 Software MiniProject
 
 
 ## React Native Mobile App: Covid Symptom Tracker
+This is an app tha
 
 ### Authentication
 All authenticaion was implemented through Google Firebase. Users can log into the app with email and password or using their Gmail. 

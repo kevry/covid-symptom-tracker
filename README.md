@@ -3,7 +3,11 @@ EC 463 Software MiniProject
 
 
 ## React Native Mobile App: Covid Symptom Tracker
-This is an app tha
+This is a COVID19 related app that allow organizations to track their users symptoms through a daily symptom survey. 
+
+#### User stories
+* As a company I want to be able to track my employees symptoms to keep the workplace safe
+* As an employee, I want to let my supervisors know that I am not experiencing symptoms on a given day without sharing my information with anyone else.
 
 ### Authentication
 All authenticaion was implemented through Google Firebase. Users can log into the app with email and password or using their Gmail. 
@@ -14,7 +18,7 @@ For registration, users will input their first name, last name, email, and passw
 Admins are manually selected. If the user is admin, they have access to the Admin Dashboard
 
 ### Admin Dashboard
-Admin users have access to all Firebase user data. They will have access to whether the user has had symptoms, their first name, last name,and email.
+Admin users have access to all Firebase user data. They will have access to whether the user has had symptoms on a given day, their first name, last name,and email.
 
 ### CovidAPI
 The app provides users with COVID data by country through [publicly available COVID19 API](COVID19api.com)

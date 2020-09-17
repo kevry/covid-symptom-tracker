@@ -42,7 +42,7 @@ Once the user is done using the app, they can log out of their account
 
 
 ## Environment Setup
-#### 1. Install the package managers 'yarn' and 'npm'
+#### 1. Install the package manager 'npm'
 
 #### 2. Install the Expo CLI
 ```
@@ -55,13 +55,13 @@ npm install -g expo-cli
 #### 2. Install dependencies
 Navigate to the folder and run
 ```
-yarn install
+npm install
 ```
 
 #### 3. Start app
 Run
 ```
-yarn start
+npm start
 ```
 
 Then install the Expo client app on your iOS or Android phone and connect to the same wireless network as your computer. On Android, use the Expo app to scan the QR code from your terminal. On iOS, use the built-in QR code scanner of the Camera app.

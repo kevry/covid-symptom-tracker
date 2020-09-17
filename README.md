@@ -7,7 +7,7 @@ This is a COVID19 related app that allow organizations to track their users symp
 
 #### User stories
 * As a company I want to be able to track my employees symptoms to keep the workplace safe
-* As an employee, I want to let my supervisors know that I am not experiencing symptoms on a given day without sharing my information with anyone else.
+* As an employee I want to let my supervisors know that I am not experiencing symptoms on a given day without sharing my information with anyone else.
 
 ### Authentication
 All authenticaion was implemented through Google Firebase. Users can log into the app with email and password or using their Gmail. 

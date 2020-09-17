@@ -5,7 +5,7 @@ EC 463 Software MiniProject
 ## React Native Mobile App: Covid Symptom Tracker
 
 ### Authentication
-All authenticaion was implemented through Google Firebase. Users can log into the app with email and password or through their Gmail. 
+All authenticaion was implemented through Google Firebase. Users can log into the app with email and password or using their Gmail. 
 
 For registration, users will input their first name, last name, email, and password to be fully registered in the app. 
 
@@ -18,37 +18,22 @@ Admin users have access to all Firebase user data. They will have access to whet
 ### CovidAPI
 The app provides users with COVID data by country through [publicly available COVID19 API](COVID19api.com)
 
-### Testing
-![](assets/demo.mov)
+### Testing 
+The app has been fully tested. 
+
+Issues that came up during testing
+* Since we are using Expo, implementing the Google Sign-in brought issues since there needed to be an Android and iOS implementation. However, we solved this issue by creating the Google Sign in throguh the browser.
+* Asynchronous tasks became an issue since for the Admin Dashboard, there needed to be multiple calls to the Firestore database. However, this was fixed by implementing Promises.
+* Error handling was an issue with the login and registration page. When users input the wrong credentials or invalid information, the app will throw an error, however this error took up the entire screen. The solution to this was when the users tried to sign in or register, we caught the error and handled it by displaying it in the UI.
+
+### Demo
+[Mobile App Demo](https://youtu.be/WRs7Vjz7dAs)
 
 ### Symptom Survey
-Users have the option to submit a symptom survey everyday whihc relate to COVID19 symptoms
+Users have the option to submit an 8 question symptom survey everyday that relate to COVID19 symptoms. After the user submits their final survey question, the results of the survey is sent to the Firebase Firestore. The results of the survey can only be accessed by the user and the admins.
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+### Logout
+Once the user is done using the app, they can log out of their account
 
 
 ## Environment Setup
